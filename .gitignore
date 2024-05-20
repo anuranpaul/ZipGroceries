@@ -1,0 +1,27 @@
+# Log files
+*.log
+
+# Spring Boot application properties and YAML files
+application.properties
+application.yml
+
+# Maven target directory
+/target
+
+# IntelliJ IDEA files
+/.idea
+*.iml
+
+# Eclipse files
+.project
+.classpath
+.settings/
+
+# MacOS files
+.DS_Store
+
+# Windows thumbnail cache files
+Thumbs.db
+
+# Other
+*.swp
