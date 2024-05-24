@@ -135,6 +135,7 @@ public class CartServiceImpl implements CartService {
      * @param cartId - clears the cart
      */
     @Override
+    @Transactional
     public void deleteCart(String cartId) {
         logger.info("Deleting items from cart ID: {}", cartId);
         cartRepository.deleteAll();
