@@ -78,11 +78,11 @@ The architecture follows a microservices design pattern where each service is in
 - **View Cart**
   - **GET** `/view`
 - **Add Item to Cart**
-  - **POST** `/cart`
+  - **POST** `/add`
 - **Modify Items in Cart**
-  - **PUT** `/cart/modify`
+  - **PUT** `/modify`
 - **Remove Item from Cart**
-  - **DELETE** `/cart`
+  - **DELETE** `/delete`
 
 ### Delivery Service
 **Base URL: `/deliveries`**
