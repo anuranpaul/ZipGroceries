@@ -37,7 +37,7 @@ public class CartController {
         return ResponseEntity.ok(cartDto);
     }
 
-    @PostMapping(value = "/cart", params = {"productCode", "quantity"})
+    @PostMapping(value = "/add", params = {"productCode", "quantity"})
     public ResponseEntity<ResponseDto> addItemToCart(@RequestParam String productCode,
                                                      @RequestParam("quantity") Integer quantity,
                                                      @RequestHeader(value = "Cookie") String cartId) {
@@ -56,7 +56,7 @@ public class CartController {
 
     }
 
-    @PutMapping(value = "/cart/modify", params = {"productCode", "quantity"})
+    @PutMapping(value = "/modify", params = {"productCode", "quantity"})
     public ResponseEntity<ResponseDto> modifyItemsInCart(@RequestParam String productCode,
                                                          @RequestParam("quantity") Integer quantity,
                                                          @RequestHeader(value = "Cookie") String cartId) {
@@ -74,7 +74,7 @@ public class CartController {
                 .body(new ResponseDto(OrderConstants.STATUS_500, OrderConstants.MESSAGE_500));
     }
 
-    @DeleteMapping(value = "/cart", params = "productCode")
+    @DeleteMapping(value = "/delete", params = "productCode")
     public ResponseEntity<ResponseDto> removeItemFromCart(
             @RequestParam String productCode,
             @RequestHeader(value = "Cookie") String cartId) {
