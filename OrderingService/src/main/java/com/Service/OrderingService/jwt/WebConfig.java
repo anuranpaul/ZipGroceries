@@ -1,4 +1,4 @@
-package com.Service.OrderingService.jwt;
+package com.InventoryService.Inventory.jwt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -15,7 +15,7 @@ public class WebConfig {
     public FilterRegistrationBean<JwtRequestFilter> jwtFilter() {
         FilterRegistrationBean<JwtRequestFilter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(jwtRequestFilter);
-        registrationBean.addUrlPatterns("/cart/*","/order/*","/inventory*");
+        registrationBean.addUrlPatterns("/deliveries/*");
         return registrationBean;
     }
 }

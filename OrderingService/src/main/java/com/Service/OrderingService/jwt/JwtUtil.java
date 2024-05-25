@@ -1,4 +1,4 @@
-package com.Service.OrderingService.jwt;
+package com.InventoryService.Inventory.jwt;
 
 
 import io.jsonwebtoken.Jwts;
