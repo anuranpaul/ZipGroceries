@@ -19,7 +19,7 @@ public class User {
     private String username;
     private String password;
     private String address;
-    private UserRole role;
+    //private UserRole role;
 
 }
 

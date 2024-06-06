@@ -12,15 +12,15 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @EnableMongoRepositories
 @OpenAPIDefinition(info = @Info(
-		title = "User microservice REST API Documentation",
-		description = "Handling users microservice REST API Documentation"))
+        title = "User microservice REST API Documentation",
+        description = "Handling users microservice REST API Documentation"))
 public class UserServiceApplication {
 
-	@Autowired
-	UserRepository usersRepo;
+    @Autowired
+    UserRepository usersRepo;
 
-	public static void main(String[] args) {
-		SpringApplication.run(UserServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(UserServiceApplication.class, args);
+    }
 
 }

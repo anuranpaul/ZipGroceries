@@ -8,8 +8,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 
 
-
-
 @Component
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
@@ -31,20 +29,15 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
                     throw new RuntimeException("missing authorization header");
                 }
-
                 String authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
                 if (authHeader != null && authHeader.startsWith("Bearer ")) {
                     authHeader = authHeader.substring(7);
                 }
                 try {
-
                     jwtUtil.validateToken(authHeader);
-                    // Pass the validated token to downstream services
-                    exchange.getRequest().mutate().header(HttpHeaders.AUTHORIZATION, "Bearer " + authHeader).build();
-
                 } catch (Exception e) {
-                    System.out.println("Invalid access!");
-                    throw new RuntimeException("Un-authorized access to application");
+                    System.out.println("Invalid access");
+                    throw new RuntimeException("Unauthorized access to application");
                 }
             }
             return chain.filter(exchange);

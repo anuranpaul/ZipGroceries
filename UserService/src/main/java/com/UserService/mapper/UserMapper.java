@@ -12,7 +12,7 @@ public class UserMapper {
         // Exclude password from DTO for security reasons
         userDto.setEmail(user.getEmail());
         userDto.setAddress(user.getAddress());
-        userDto.setRole(user.getRole().name()); // Assuming UserRole has a name() method
+        //userDto.setRole(user.getRole().name()); // Assuming UserRole has a name() method
         return userDto;
     }
 
@@ -20,7 +20,7 @@ public class UserMapper {
         user.setUsername(userDto.getUsername());
         user.setEmail(userDto.getEmail());
         user.setAddress(userDto.getAddress());
-        user.setRole(UserRole.valueOf(userDto.getRole())); // Assuming UserRole is an enum
+        //user.setRole(UserRole.valueOf(userDto.getRole())); // Assuming UserRole is an enum
         return user;
     }
 }

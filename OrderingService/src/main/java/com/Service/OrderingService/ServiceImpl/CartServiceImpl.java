@@ -27,7 +27,7 @@ import java.util.List;
 @Scope("prototype")
 public class CartServiceImpl implements CartService {
 
-    private static final Logger logger= LoggerFactory.getLogger(CartService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CartService.class);
 
     @Autowired
     private CartRepository cartRepository;
@@ -90,14 +90,14 @@ public class CartServiceImpl implements CartService {
             }
         }
     }
+
     @Override
-    public List<Item> getItems(String cartId){
+    public List<Item> getItems(String cartId) {
         logger.info("Fetching items for cart ID: {}", cartId);
         return cartRepository.findAll();
     }
 
     /**
-     *
      * @param productCode - to check whether the product code given exists in the inventory or not
      * @return - true or false, depending on response from the server
      */
@@ -111,7 +111,6 @@ public class CartServiceImpl implements CartService {
     }
 
     /**
-     *
      * @param cartId - cartID as the required parameter
      * @return - all the Items that have been added to cart
      */
@@ -131,20 +130,20 @@ public class CartServiceImpl implements CartService {
     }
 
     /**
-     *
      * @param cartId - clears the cart
      */
     @Override
     @Transactional
     public void deleteCart(String cartId) {
         logger.info("Deleting items from cart ID: {}", cartId);
-        cartRepository.deleteAll();
+        List<Item> items = cartRepository.findByCartId(cartId);
+        cartRepository.deleteByCartId(cartId);
     }
 
     private List<CartItemDto> convertCartItemsToDtos(List<Item> items) {
         List<CartItemDto> cartItemDtos = new ArrayList<>();
         for (Item item : items) {
-            cartItemDtos.add(new CartItemDto(item.getProduct().getProductName(),
+            cartItemDtos.add(new CartItemDto(item.getProduct().getProductCode(),item.getProduct().getProductName(),
                     item.getProduct().getPrice(),
                     item.getQuantity()));
         }
@@ -153,6 +152,7 @@ public class CartServiceImpl implements CartService {
 
     /**
      * Assuming a method to calculate subTotal based on items in the cart
+     *
      * @param items - Gets a list of items
      * @return - using the Cart utils subTotal method, get the subtotal for each item.
      */

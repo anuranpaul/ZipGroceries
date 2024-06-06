@@ -22,7 +22,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/users", produces = {MediaType.APPLICATION_JSON_VALUE})
-@CrossOrigin(origins = "*")
 @AllArgsConstructor
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -41,7 +40,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginForm loginForm) throws ResourceNotFoundException, InvalidPasswordException {
-        LoginResponse response= userService.login(loginForm);
+        LoginResponse response = userService.login(loginForm);
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(response);

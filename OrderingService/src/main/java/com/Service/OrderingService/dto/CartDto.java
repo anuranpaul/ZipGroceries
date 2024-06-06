@@ -18,6 +18,7 @@ public class CartDto {
     @Data
     @AllArgsConstructor @NoArgsConstructor// Includes getters and setters for CartDto fields
     public static class CartItemDto {
+        private String productCode;
         private String productName;
         private Double price;
         private Integer quantity; // Changed type to Integer

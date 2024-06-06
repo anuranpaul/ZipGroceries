@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-@FeignClient(name = "delivery-service", url = "http://localhost:8083/")
+@FeignClient(name = "order-service", url = "http://localhost:8083/")
 public interface OrderClient {
 
     @GetMapping("/order/{orderNumber}/order-status")

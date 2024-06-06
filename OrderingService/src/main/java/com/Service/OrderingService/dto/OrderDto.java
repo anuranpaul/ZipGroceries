@@ -16,6 +16,7 @@ public class OrderDto {
     private Long id;
     private String userEmail;
     private LocalDate orderedDate;
+    private String orderNumber;
     private String status;
     private double total;
     private List<ItemDto> items; // List of items in the order

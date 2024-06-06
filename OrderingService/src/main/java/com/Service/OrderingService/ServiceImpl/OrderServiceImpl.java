@@ -114,6 +114,7 @@ public class OrderServiceImpl implements OrderService {
                     order.getId(),
                     order.getUser().getEmail(), // Assuming you have a getter for userEmail in Order
                     order.getOrderedDate(),
+                    order.getOrderNumber(),
                     order.getStatus(),
                     order.getTotal(),
                     convertItemsToDtos(order.getItems()) // Assuming you have items and a convertItemsToDtos method

@@ -1,5 +1,6 @@
 # Log files
 *.log
+*.gz
 
 # Spring Boot application properties and YAML files
 application.properties

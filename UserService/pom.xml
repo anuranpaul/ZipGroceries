@@ -8,11 +8,11 @@
         <version>3.2.5</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.grocery</groupId>
-    <artifactId>delivery-service</artifactId>
+    <groupId>com.UserService</groupId>
+    <artifactId>UserService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>delivery-service</name>
-    <description>Delivery Service</description>
+    <name>user-service</name>
+    <description>User Service to handle user management</description>
     <properties>
         <java.version>17</java.version>
         <spring-cloud.version>2023.0.1</spring-cloud.version>

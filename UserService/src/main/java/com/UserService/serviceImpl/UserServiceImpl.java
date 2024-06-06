@@ -20,23 +20,21 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.security.SecureRandom;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-
-    @Value("${jwt.secret}")
-    private String jwtSecret;
-
-    @Value("${jwtExpiration}")
-    private int jwtExpiration;
-
     @Autowired
     public UserRepository userRepo;
-
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+    @Value("${jwtExpiration}")
+    private int jwtExpiration;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -137,23 +135,18 @@ public class UserServiceImpl implements UserService {
     }
 
     private LoginResponse createJwtToken(User user) {
-//        SecureRandom secureRandom = new SecureRandom();
-//        byte[] secretBytes = new byte[32]; // 256 bits
-//        secureRandom.nextBytes(secretBytes);
-//        String jwtSecret = Base64.getEncoder().encodeToString(secretBytes);
         logger.info("The jwtSecret is : {}", jwtSecret);
         JwtBuilder jwtBuilder = Jwts.builder()
                 .setSubject(user.getEmail()) // Use a non-sensitive subject
-                .claim("roles", user.getRole() != null ? user.getRole().name() : "") // Handle potential null role
-                .claim("username", user.getUsername()) // Add username claim
+                 // Handle potential null role
                 .claim("email", user.getEmail()) // Add email claim
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpiration))
                 .signWith(SignatureAlgorithm.HS256, jwtSecret);
 
         String token = jwtBuilder.compact();
-        //jwtSecretService.storeJwtSecret(token, jwtSecret);
-        return new LoginResponse(token, user.getUsername(), user.getEmail());
+        logger.info("The jwt token is {}",token);
+        return new LoginResponse(user.getUsername(), user.getEmail(), user.getAddress());
     }
 
     private boolean passwordMatches(String enteredPassword, String storedHash) {

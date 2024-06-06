@@ -18,7 +18,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/cart", produces = {MediaType.APPLICATION_JSON_VALUE})
-@CrossOrigin(origins = "*")
 public class CartController {
 
     private static final Logger logger= LoggerFactory.getLogger(CartController.class);

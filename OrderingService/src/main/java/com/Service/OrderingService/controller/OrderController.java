@@ -26,7 +26,6 @@ import static org.springframework.http.ResponseEntity.status;
 
 @RestController
 @RequestMapping(path = "/order", produces = {MediaType.APPLICATION_JSON_VALUE})
-@CrossOrigin(origins = "*")
 public class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
