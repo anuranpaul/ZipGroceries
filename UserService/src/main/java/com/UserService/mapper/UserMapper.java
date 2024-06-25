@@ -8,7 +8,7 @@ public class UserMapper {
 
     public static UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto(); // Consider a pre-initialized UserDto if needed
-        userDto.setUsername(user.getUsername());
+        userDto.setUserName(user.getUserName());
         // Exclude password from DTO for security reasons
         userDto.setEmail(user.getEmail());
         userDto.setAddress(user.getAddress());
@@ -17,8 +17,8 @@ public class UserMapper {
     }
 
     public static User mapToUser(UserDto userDto, User user) {
-        user.setUsername(userDto.getUsername());
-        user.setEmail(userDto.getEmail());
+        user.setUserName(userDto.getUserName());
+        //user.setEmail(userDto.getEmail());
         user.setAddress(userDto.getAddress());
         //user.setRole(UserRole.valueOf(userDto.getRole())); // Assuming UserRole is an enum
         return user;

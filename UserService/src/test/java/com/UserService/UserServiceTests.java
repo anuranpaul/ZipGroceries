@@ -63,7 +63,7 @@
 //
 //    @Test
 //    void testFetchUserByUsername() {
-//        when(userRepo.findByUsername(anyString())).thenReturn(Optional.of(user));
+//        when(userRepo.findByUserName(anyString())).thenReturn(Optional.of(user));
 //
 //        UserDto fetchedUser = userService.fetchUser("testuser", UserService.FetchType.USERNAME);
 //

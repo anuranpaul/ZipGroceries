@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/register")
+    @PostMapping("/add")
     public ResponseEntity<ResponseDto> addCustomer(@RequestBody User user) {
         logger.info("Registering user: {}", user.getEmail());
         userService.registerUser(user);

@@ -8,7 +8,4 @@ import lombok.Data;
 public class ResponseDto {
     private String statusCode;
     private String statusMsg;
-
-//    public ResponseDto(String status200, String message200) {
-//    }
 }

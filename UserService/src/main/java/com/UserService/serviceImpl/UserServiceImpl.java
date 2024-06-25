@@ -13,6 +13,7 @@ import com.UserService.service.UserService;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,7 +44,7 @@ public class UserServiceImpl implements UserService {
      * @param user - userDto
      */
     public void registerUser(User user) {
-        logger.info("Registering user: {}", user.getUsername());
+        logger.info("Registering user: {}", user.getUserName());
         String hashedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(hashedPassword);
         Optional<User> optionalUser = userRepo.findByEmail(user.getEmail());
@@ -55,13 +57,14 @@ public class UserServiceImpl implements UserService {
 
 
     /**
-     *
+     * @param identifier - this can be either email or the username
+     * @return the details of the user that is found with the entered param
      */
     @Override
     public UserDto fetchUser(String identifier, FetchType fetchType) {
         logger.info("Finding user by {}: {}", fetchType, identifier);
         Optional<User> userOptional = switch (fetchType) {
-            case USERNAME -> userRepo.findByUsername(identifier);
+            case USERNAME -> userRepo.findByUserName(identifier);
             case EMAIL -> userRepo.findByEmail(identifier);
         };
         User user = userOptional.orElseThrow(() ->
@@ -75,17 +78,17 @@ public class UserServiceImpl implements UserService {
      * @return true or false, indicating if update is successful or not
      */
     @Override
+    @Transactional
     public boolean updateUser(UserDto userDto) {
-
         boolean isUpdated = false;
 
         if (userDto != null) {
-            logger.info("Updating user with email: {}", userDto.getEmail());
-            User user = userRepo.findByEmail(userDto.getEmail()).orElseThrow(
-                    () -> new ResourceNotFoundException("User", "Email", userDto.getEmail())
-            );
-            UserMapper.mapToUser(userDto, user);
-            userRepo.save(user);
+            String email = userDto.getEmail();
+            User existingUser = userRepo.findByEmail(email)
+                    .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+            UserMapper.mapToUser(userDto, existingUser);
+            existingUser.setUpdatedAt(new Timestamp(new Date().getTime()));
+            userRepo.save(existingUser);
             isUpdated = true;
         }
         return isUpdated;
@@ -146,7 +149,7 @@ public class UserServiceImpl implements UserService {
 
         String token = jwtBuilder.compact();
         logger.info("The jwt token is {}",token);
-        return new LoginResponse(user.getUsername(), user.getEmail(), user.getAddress());
+        return new LoginResponse(user.getUserName(), user.getEmail(), user.getAddress());
     }
 
     private boolean passwordMatches(String enteredPassword, String storedHash) {

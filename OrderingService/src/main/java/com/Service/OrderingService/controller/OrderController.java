@@ -43,15 +43,17 @@ public class OrderController {
             @PathVariable String userEmail,
             @RequestHeader(value = "Cookie") String cartId) {
         logger.info("Saving order for user: {}", userEmail);
+
         List<Item> cart = cartService.getItems(cartId);
         User user = userClient.getUser(userEmail);
-        //System.out.println(user);
+
         logger.info("Retrieved user details for email: {}", userEmail);
+
         if (cart != null && user != null) {
             Order order = orderService.createOrder(cart, user);
             try {
                 orderService.placeOrder(order);
-                cartService.deleteCart(cartId);
+                //cartService.deleteCart(cartId);
                 return status(HttpStatus.CREATED)
                         .body(new ResponseDto(OrderConstants.STATUS_201, OrderConstants.MESSAGE_201));
             } catch (Exception ex) {
@@ -97,5 +99,4 @@ public class OrderController {
         logger.info("Choosing delivery slot for order: {}", orderNumber);
         return orderService.chooseDeliverySlot(orderNumber, chosenSlot);
     }
-
 }

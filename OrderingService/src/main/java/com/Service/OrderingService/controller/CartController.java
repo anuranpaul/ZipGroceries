@@ -89,4 +89,9 @@ public class CartController {
                 new ResponseDto(OrderConstants.STATUS_417, OrderConstants.MESSAGE_417_DELETE));
 
     }
+    @DeleteMapping("/delete/{cartId}")
+    public void deleteCart(@PathVariable String cartId) {
+        logger.info("Received request to delete cart with ID: {}", cartId);
+        cartService.deleteCart(cartId);
+    }
 }

@@ -49,7 +49,7 @@ public class InventoryController {
     }
 
     @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> deleteProducts(@RequestParam List<String> productCodes) {
+    public ResponseEntity<ResponseDto> deleteProducts(@RequestBody List<String> productCodes) {
         logger.info("Deleting products with product codes: {}", productCodes);
         boolean isDeleted = inventoryService.deleteProduct(productCodes);
         if (isDeleted) {
